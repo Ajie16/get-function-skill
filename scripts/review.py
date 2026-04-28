@@ -708,9 +708,9 @@ function applyChanges() {{
     return;
   }}
 
-  stderrEl.textContent = 'Step 1: Click "Download" to save replacements.json\n' +
-    'Step 2: Run in terminal:\n' +
-    '  python skills/code-optimizer/scripts/replacements.py apply --input extracted.json\n\n' +
+  stderrEl.textContent = 'Step 1: Click "Download" to save replacements.json\\n' +
+    'Step 2: Run in terminal:\\n' +
+    '  python scripts/replacements.py apply --input extracted.json\\n\\n' +
     'Ready to apply: ' + reps.length + ' replacements';
   stderrEl.style.color = 'var(--text)';
   stderrEl.style.display = 'block';
