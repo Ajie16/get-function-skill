@@ -145,18 +145,17 @@ def parse_path_entry(entry: Any) -> Dict[str, Any]:
 
 def cmd_analyze(args: argparse.Namespace) -> None:
     config = load_json(args.config)
-    paths_data = load_json(args.paths)
 
     target_functions = config.get("targetFunctions", [])
     file_patterns = config.get("filePatterns", ["*"])
     exclude_patterns = config.get("excludePatterns", [])
-    raw_paths = paths_data.get("paths", [])
+    raw_paths = config.get("paths", [])
 
     if not target_functions:
-        print("Error: targetFunctions not specified in config.json", file=sys.stderr)
+        print("Error: targetFunctions not specified in config", file=sys.stderr)
         sys.exit(1)
     if not raw_paths:
-        print("Error: paths not specified in paths.json", file=sys.stderr)
+        print("Error: paths not specified in config", file=sys.stderr)
         sys.exit(1)
 
     path_entries = [parse_path_entry(p) for p in raw_paths]
@@ -459,8 +458,7 @@ def main() -> None:
 
     # analyze
     analyze_parser = subparsers.add_parser("analyze", help="Extract print function string literals")
-    analyze_parser.add_argument("--config", required=True, help="Config JSON path")
-    analyze_parser.add_argument("--paths", required=True, help="Paths JSON path")
+    analyze_parser.add_argument("--config", required=True, help="Config JSON path (targetFunctions, filePatterns, excludePatterns, paths)")
     analyze_parser.add_argument("--output", required=True, help="Output extracted JSON path")
 
     # get

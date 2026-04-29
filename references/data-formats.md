@@ -6,7 +6,8 @@
 {
   "targetFunctions": ["osal_printk", "printk", "printf"],
   "filePatterns": ["*.c", "*.h"],
-  "excludePatterns": ["node_modules/**", "dist/**", "*.test.*"]
+  "excludePatterns": ["node_modules/**", "dist/**", "*.test.*"],
+  "paths": ["./src", {"path": "./drivers", "gitRepo": "/home/user/project-a"}]
 }
 ```
 
@@ -15,26 +16,9 @@
 | targetFunctions | `string[]` | Print function names to extract string literals from |
 | filePatterns | `string[]` | File glob patterns to include |
 | excludePatterns | `string[]` | File glob patterns to exclude (supports `**`) |
+| paths | `string[] \| object[]` | Source paths to analyze; string or `{path, gitRepo?}` object |
 
-## paths.json
-
-Supports string or object entries per path:
-
-```json
-{
-  "paths": [
-    "./src",
-    {"path": "./drivers", "gitRepo": "/home/user/project-a"}
-  ]
-}
-```
-
-| Format | Fields | Description |
-|--------|--------|-------------|
-| String | - | Analysis path; git repo auto-detected by walking up for `.git` |
-| Object | path, gitRepo | `gitRepo` is optional; auto-detected if omitted |
-
-Each extracted item inherits its path's `gitRepo`.
+Each path entry inherits its `gitRepo` (auto-detected by walking up for `.git` if omitted).
 
 ## extracted.json
 

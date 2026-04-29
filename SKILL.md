@@ -40,13 +40,7 @@ description: |
 {
   "targetFunctions": ["osal_printk"],
   "filePatterns": ["*.c", "*.h"],
-  "excludePatterns": ["**/test/**", "**/vendor/**"]
-}
-```
-
-**创建 `paths.json`**：
-```json
-{
+  "excludePatterns": ["**/test/**", "**/vendor/**"],
   "paths": ["/absolute/path/to/source"]
 }
 ```
@@ -57,7 +51,7 @@ description: |
 
 ```bash
 python scripts/codebase.py analyze \
-  --config config.json --paths paths.json --output extracted.json
+  --config config.json --output extracted.json
 ```
 
 **预期输出**：
@@ -161,7 +155,7 @@ Stats: total=64, pending=0, completed=64
 
 | 目的 | 命令 |
 |------|------|
-| 提取字符串 | `python scripts/codebase.py analyze --config config.json --paths paths.json --output extracted.json` |
+| 提取字符串 | `python scripts/codebase.py analyze --config config.json --output extracted.json` |
 | 获取批次 | `python scripts/codebase.py get --input extracted.json --batch 30`（默认只返回 id + stringLiteral）|
 | 导入替换 | `python scripts/replacements.py import --file batch-replacements.json` |
 | 审查页面 | `python scripts/review.py --input extracted.json --replacements replacements.json --output review.html` |
@@ -191,15 +185,12 @@ Stats: total=64, pending=0, completed=64
 ```bash
 # 1. 准备配置
 cat > config.json << 'EOF'
-{"targetFunctions": ["osal_printk"], "filePatterns": ["*.c", "*.h"], "excludePatterns": []}
-EOF
-cat > paths.json << 'EOF'
-{"paths": ["/home/user/project/src"]}
+{"targetFunctions": ["osal_printk"], "filePatterns": ["*.c", "*.h"], "excludePatterns": [], "paths": ["/home/user/project/src"]}
 EOF
 
 # 2. 提取
 python scripts/codebase.py analyze \
-  --config config.json --paths paths.json --output extracted.json
+  --config config.json --output extracted.json
 
 # 3. 获取批次 → 生成 batch-replacements.json
 python scripts/codebase.py get --input extracted.json --batch 30
@@ -216,7 +207,7 @@ python scripts/codebase.py status --input extracted.json
 ## 8. 检查清单
 
 - [ ] 已确认目标打印函数名和源码路径
-- [ ] `config.json` 和 `paths.json` 已创建且格式正确
+- [ ] `config.json` 已创建且格式正确
 - [ ] `analyze` 成功提取到字符串（数量 > 0）
 - [ ] 所有待处理项已分批获取并完成替换生成
 - [ ] 替换结果已导入 `replacements.json`

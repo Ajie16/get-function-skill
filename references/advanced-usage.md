@@ -44,7 +44,7 @@ With `--group-by-file`, a `--batch` of 5–10 files usually keeps the response u
 
 | Command | Arguments | Purpose |
 |---------|-----------|---------|
-| `analyze` | `--config`, `--paths`, `--output` | Scan paths, extract print function string literals → `extracted.json` |
+| `analyze` | `--config`, `--output` | Scan paths, extract print function string literals → `extracted.json` |
 | `get` | `--input`, `--batch` (default 30), `--format` (`minimal`\|`full`), `--group-by-file` | Return pending items, assign `batchId` |
 | `mark-done` | `--input`, `--ids` or `--batch-id` | Manually mark items as completed |
 | `status` | `--input`, `--strict` | Show progress stats; `--strict` exits non-zero if incomplete |
