@@ -77,11 +77,11 @@ python scripts/codebase.py get \
 
 ### 步骤 4：生成替换内容
 
-根据 `get` 返回的紧凑数组 `[id, stringLiteral]`，为每个条目生成精简后的替换字符串。
+根据 `get` 返回的简单文本（每行 `id: stringLiteral`），为每个条目生成精简后的替换字符串。
 
 **替换输出格式**：生成 `batch-replacements.json`，支持两种格式：
 
-紧凑数组格式（与 `get` 输出对齐，推荐）：
+紧凑数组格式（推荐，import 直接兼容）：
 ```json
 {
   "version": "1.0",
