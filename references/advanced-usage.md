@@ -21,7 +21,7 @@ Process one file at a time. `--batch` controls the number of **files** (not item
 
 ```bash
 python scripts/codebase.py get \
-  --input extracted.json --batch 5 --format minimal --group-by-file
+  --input extracted.json --batch 5 --group-by-file
 ```
 
 The output includes a `groupedByFile` map for easy per-file processing.
@@ -69,7 +69,6 @@ Generate a self-contained static HTML page for human review of AI-generated repl
 ```bash
 python scripts/review.py \
   --input extracted.json \
-  --replacements replacements.json \
   --output review.html
 ```
 
@@ -92,7 +91,7 @@ python scripts/replacements.py import --file ai-batch.json
 
 # Generate review page
 python scripts/review.py \
-  --input extracted.json --replacements replacements.json --output review.html
+  --input extracted.json --output review.html
 
 # Open review.html in browser, edit / skip as needed, click Export
 # The exported replacements.json overwrites the old one

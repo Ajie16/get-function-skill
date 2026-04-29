@@ -2,7 +2,8 @@
 name: code-optimizer
 description: |
   批量提取代码库中指定打印函数（如 osal_printk、printk、printf）的字符串字面量参数，
-  生成替换后安全写回源码。触发场景：优化日志字符串、精简打印输出、批量重构字符串字面量、
+  生成精简替换后安全写回源码。仅需 Python 3 标准库，零第三方依赖。
+  触发场景：优化日志字符串、精简打印输出、批量重构字符串字面量、
   提取并替换打印函数参数、代码库级字符串优化、缩短 printk/osal_printk 字符串、
   减少固件镜像中的日志体积、优化调试输出。
 ---
@@ -24,7 +25,7 @@ description: |
 
 - 目标代码库必须是 **Git 仓库**（`extracted.json` 依赖 `gitRepo` 路径解析）
 - 已安装 **Python 3**（仅标准库，无第三方依赖）
-- 已安装 **jq**（Ralph 主脚本需要，code-optimizer Skill 本身不需要）
+
 
 ## 3. 执行步骤（严格按顺序）
 
@@ -69,7 +70,7 @@ python scripts/codebase.py get \
 ```
 
 **输出说明**：
-- 返回 JSON 格式的 `items` 数组，每个项包含 `id`、`stringLiteral`、`context` 等
+- 默认返回 JSON 格式的 `items` 数组，每个项只包含 `id` 和 `stringLiteral`
 - 当返回 `"remaining": 0` 时，表示全部处理完毕，跳到步骤 5
 - **大型代码库**（>1000 项）：添加 `--group-by-file` 以减少输出体积；如需完整字段可指定 `--format full`
 
@@ -107,7 +108,7 @@ python scripts/replacements.py import \
 
 ```bash
 python scripts/review.py \
-  --input extracted.json --replacements replacements.json --output review.html
+  --input extracted.json --output review.html
 ```
 
 **操作流程**：
@@ -158,7 +159,7 @@ Stats: total=64, pending=0, completed=64
 | 提取字符串 | `python scripts/codebase.py analyze --config config.json --output extracted.json` |
 | 获取批次 | `python scripts/codebase.py get --input extracted.json --batch 30`（默认只返回 id + stringLiteral）|
 | 导入替换 | `python scripts/replacements.py import --file batch-replacements.json` |
-| 审查页面 | `python scripts/review.py --input extracted.json --replacements replacements.json --output review.html` |
+| 审查页面 | `python scripts/review.py --input extracted.json --output review.html` |
 | 应用替换 | `python scripts/replacements.py apply --input extracted.json` |
 | 状态检查 | `python scripts/codebase.py status --input extracted.json` |
 | 严格检查 | `python scripts/codebase.py status --input extracted.json --strict` |
