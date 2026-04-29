@@ -70,9 +70,10 @@ python scripts/codebase.py get \
 ```
 
 **输出说明**：
-- 默认返回紧凑数组格式 `items: [[id, stringLiteral], ...]`，最大化单次可处理数量
+- 默认返回简单文本格式，每行 `id: stringLiteral`
+- 如需完整 JSON（含 batchId、count、remaining），添加 `--json`
 - 循环执行：获取一批 → AI 生成替换 → 再获取下一批，直到 `"remaining": 0`
-- **大型代码库**（>1000 项）：添加 `--group-by-file` 以减少输出体积；如需完整字段可指定 `--format full`
+- **大型代码库**（>1000 项）：添加 `--group-by-file` 以减少输出体积；如需完整字段可指定 `--format full --json`
 
 ### 步骤 4：生成替换内容
 
@@ -168,7 +169,7 @@ Stats: total=64, pending=0, completed=64
 | 目的 | 命令 |
 |------|------|
 | 提取字符串 | `python scripts/codebase.py analyze --config config.json --output extracted.json` |
-| 获取批次 | `python scripts/codebase.py get --input extracted.json --batch 30`（默认返回 `[[id, stringLiteral], ...]`）|
+| 获取批次 | `python scripts/codebase.py get --input extracted.json --batch 30`（默认纯文本；加 `--json` 返回完整 JSON）|
 | 导入替换 | `python scripts/replacements.py import --file batch-replacements.json` |
 | 审查页面 | `python scripts/review.py --input extracted.json --output review.html` |
 | 应用替换 | `python scripts/replacements.py apply --input extracted.json` |

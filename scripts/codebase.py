@@ -274,24 +274,35 @@ def cmd_get(args: argparse.Namespace) -> None:
 
     output_items = [_make_output_item(item) for item in to_process]
 
-    output: dict = {
-        "batchId": batch_id,
-        "count": len(to_process),
-        "remaining": len(pending_items) - len(to_process),
-        "items": output_items,
-    }
-
-    if args.group_by_file:
-        from collections import OrderedDict
-        grouped: OrderedDict[str, list] = OrderedDict()
+    if args.json:
+        # Full JSON output with metadata
+        output: dict = {
+            "batchId": batch_id,
+            "count": len(to_process),
+            "remaining": len(pending_items) - len(to_process),
+            "items": output_items,
+        }
+        if args.group_by_file:
+            from collections import OrderedDict
+            grouped: OrderedDict[str, list] = OrderedDict()
+            for item in output_items:
+                fp = item.get("filePath", "")
+                if fp not in grouped:
+                    grouped[fp] = []
+                grouped[fp].append(item)
+            output["groupedByFile"] = dict(grouped)
+        print(json.dumps(output, ensure_ascii=False, indent=2))
+    else:
+        # Simple plain-text output: one item per line
         for item in output_items:
-            fp = item.get("filePath", "")
-            if fp not in grouped:
-                grouped[fp] = []
-            grouped[fp].append(item)
-        output["groupedByFile"] = dict(grouped)
-
-    print(json.dumps(output, ensure_ascii=False, indent=2))
+            if isinstance(item, list) and len(item) >= 2:
+                print(f"{item[0]}: {item[1]}")
+            elif isinstance(item, dict):
+                sid = item.get("id", "")
+                sl = item.get("stringLiteral", "")
+                print(f"{sid}: {sl}")
+            else:
+                print(str(item))
 
 
 def cmd_mark_done(args: argparse.Namespace) -> None:
@@ -467,7 +478,12 @@ def main() -> None:
         "--format",
         choices=["full", "minimal"],
         default="minimal",
-        help="Output format: minimal (id+stringLiteral only, default, saves tokens) or full (all fields)",
+        help="Item format: minimal (id+stringLiteral only, default) or full (all fields). Only affects --json output.",
+    )
+    get_parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Output full JSON with metadata (batchId, count, remaining). Default is plain text.",
     )
     get_parser.add_argument(
         "--group-by-file",
