@@ -266,12 +266,10 @@ def cmd_get(args: argparse.Namespace) -> None:
 
     save_json(args.input, data)
 
-    def _make_output_item(item: dict) -> dict:
+    def _make_output_item(item: dict) -> list:
         if args.format == "minimal":
-            return {
-                "id": item["id"],
-                "stringLiteral": item["stringLiteral"],
-            }
+            # Compact array format: [id, stringLiteral] — minimizes token usage
+            return [item["id"], item["stringLiteral"]]
         return item
 
     output_items = [_make_output_item(item) for item in to_process]

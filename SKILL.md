@@ -70,7 +70,7 @@ python scripts/codebase.py get \
 ```
 
 **输出说明**：
-- 默认返回 JSON 格式的 `items` 数组，每个项只包含 `id` 和 `stringLiteral`
+- 默认返回紧凑数组格式 `items: [[id, stringLiteral], ...]`，最大化单次可处理数量
 - 当返回 `"remaining": 0` 时，表示全部处理完毕，跳到步骤 6
 - **大型代码库**（>1000 项）：添加 `--group-by-file` 以减少输出体积；如需完整字段可指定 `--format full`
 

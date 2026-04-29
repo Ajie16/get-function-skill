@@ -6,7 +6,7 @@ When the codebase contains thousands of print calls, AI context limits become th
 
 ### 1. Default minimal output
 
-By default, `get` only returns `id` and `stringLiteral` — omitting `filePath`, `lineStart`, `code`, `context`, and offsets. This minimizes token consumption:
+By default, `get` returns a compact array format `items: [[id, stringLiteral], ...]` — omitting `filePath`, `lineStart`, `code`, `context`, and offsets. This minimizes token consumption:
 
 ```bash
 python scripts/codebase.py get \
