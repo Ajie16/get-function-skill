@@ -71,12 +71,12 @@ python scripts/codebase.py get \
 
 **输出说明**：
 - 默认返回紧凑数组格式 `items: [[id, stringLiteral], ...]`，最大化单次可处理数量
-- 当返回 `"remaining": 0` 时，表示全部处理完毕，跳到步骤 6
+- 循环执行：获取一批 → AI 生成替换 → 再获取下一批，直到 `"remaining": 0`
 - **大型代码库**（>1000 项）：添加 `--group-by-file` 以减少输出体积；如需完整字段可指定 `--format full`
 
 ### 步骤 4：生成替换内容
 
-根据抓取到的 `stringLiteral` 和上下文，生成精简后的替换字符串。
+根据 `get` 返回的紧凑数组 `[id, stringLiteral]`，为每个条目生成精简后的替换字符串。
 
 **替换输出格式**：生成 `batch-replacements.json`，支持两种格式：
 
@@ -99,7 +99,6 @@ python scripts/codebase.py get \
     {"id": "call-001", "replacement": "\"精简后的字符串\\n\""}
   ]
 }
-```
 ```
 
 **替换规则**：
@@ -169,7 +168,7 @@ Stats: total=64, pending=0, completed=64
 | 目的 | 命令 |
 |------|------|
 | 提取字符串 | `python scripts/codebase.py analyze --config config.json --output extracted.json` |
-| 获取批次 | `python scripts/codebase.py get --input extracted.json --batch 30`（默认只返回 id + stringLiteral）|
+| 获取批次 | `python scripts/codebase.py get --input extracted.json --batch 30`（默认返回 `[[id, stringLiteral], ...]`）|
 | 导入替换 | `python scripts/replacements.py import --file batch-replacements.json` |
 | 审查页面 | `python scripts/review.py --input extracted.json --output review.html` |
 | 应用替换 | `python scripts/replacements.py apply --input extracted.json` |
@@ -205,9 +204,9 @@ EOF
 python scripts/codebase.py analyze \
   --config config.json --output extracted.json
 
-# 3. 获取批次 → 生成 batch-replacements.json
+# 3. 获取批次 → AI 生成 batch-replacements.json
 python scripts/codebase.py get --input extracted.json --batch 30
-# [生成 batch-replacements.json]
+# [AI 生成 batch-replacements.json]
 
 # 4. （可选）审查
 # python scripts/review.py --input extracted.json --output review.html
