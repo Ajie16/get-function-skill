@@ -78,15 +78,28 @@ python scripts/codebase.py get \
 
 根据抓取到的 `stringLiteral` 和上下文，生成精简后的替换字符串。
 
-**替换输出格式**：生成 `batch-replacements.json`：
+**替换输出格式**：生成 `batch-replacements.json`，支持两种格式：
+
+紧凑数组格式（与 `get` 输出对齐，推荐）：
 ```json
 {
   "version": "1.0",
   "replacements": [
-    {"id": "call-001", "replacement": "\"精简后的字符串\\n\""},
-    {"id": "call-002", "replacement": "\"%d %d %d\\n\""}
+    ["call-001", "\"精简后的字符串\\n\""],
+    ["call-002", "\"%d %d %d\\n\""]
   ]
 }
+```
+
+或传统对象格式：
+```json
+{
+  "version": "1.0",
+  "replacements": [
+    {"id": "call-001", "replacement": "\"精简后的字符串\\n\""}
+  ]
+}
+```
 ```
 
 **替换规则**：

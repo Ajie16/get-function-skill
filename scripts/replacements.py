@@ -50,7 +50,12 @@ def ensure_replacements_file(path: str = DEFAULT_REPLACEMENTS_FILE) -> Dict[str,
 
 
 def cmd_import(args: argparse.Namespace) -> None:
-    """Import replacements from an AI-generated JSON file."""
+    """Import replacements from an AI-generated JSON file.
+
+    Supports two formats:
+      - Object: {"id": "call-001", "replacement": "\"str\""}
+      - Compact array: ["call-001", "\"str\""]  (matches get output format)
+    """
     src = load_json(args.file)
     src_replacements = src.get("replacements", [])
     if not src_replacements:
@@ -63,11 +68,17 @@ def cmd_import(args: argparse.Namespace) -> None:
     added = 0
     updated = 0
     for rep in src_replacements:
-        rep_id = rep.get("id")
-        if not rep_id:
+        # Support compact array format [id, replacement]
+        if isinstance(rep, list) and len(rep) >= 2:
+            rep_id = rep[0]
+            replacement = rep[1]
+        elif isinstance(rep, dict):
+            rep_id = rep.get("id")
+            replacement = rep.get("replacement")
+        else:
             continue
-        replacement = rep.get("replacement")
-        if replacement is None:
+
+        if not rep_id or replacement is None:
             continue
         if rep_id in existing_map:
             existing_map[rep_id]["replacement"] = replacement
