@@ -1,5 +1,5 @@
 ---
-name: code-optimizer
+name: get-function-skill
 description: |
   批量提取代码库中指定打印函数（如 osal_printk、printk、printf）的字符串字面量参数，
   生成精简替换后安全写回源码。仅需 Python 3 标准库，零第三方依赖。
