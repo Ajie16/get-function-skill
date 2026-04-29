@@ -58,10 +58,36 @@ python scripts/codebase.py status --input extracted.json
 | `python scripts/codebase.py analyze --config cfg.json --output out.json` | 提取字符串 |
 | `python scripts/codebase.py get --input out.json --batch 30` | 获取待处理项（默认纯文本） |
 | `python scripts/codebase.py get --input out.json --batch 30 --json` | 获取待处理项（JSON 格式） |
-| `python scripts/replacements.py import --file batch.json` | 导入替换 |
+| `python scripts/codebase.py get --input out.json --batch 30 --json --format full` | 获取完整字段（需配合 `--json`） |
+| `python scripts/replacements.py import --file batch.json` | 导入替换（支持紧凑数组和对象格式） |
 | `python scripts/replacements.py apply --input out.json` | 应用到源码 |
 | `python scripts/review.py --input out.json --output review.html` | 生成审查页面 |
 | `python scripts/codebase.py status --input out.json` | 查看进度 |
+
+## 替换格式
+
+`batch-replacements.json` 支持两种格式，推荐紧凑数组：
+
+```json
+{
+  "version": "1.0",
+  "replacements": [
+    ["call-001", "\"精简后的字符串\\n\""],
+    ["call-002", "\"%d %d %d\\n\""]
+  ]
+}
+```
+
+或传统对象格式：
+
+```json
+{
+  "version": "1.0",
+  "replacements": [
+    {"id": "call-001", "replacement": "\"精简后的字符串\\n\""}
+  ]
+}
+```
 
 ## License
 
