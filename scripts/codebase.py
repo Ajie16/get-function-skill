@@ -272,8 +272,6 @@ def cmd_get(args: argparse.Namespace) -> None:
             return {
                 "id": item["id"],
                 "stringLiteral": item["stringLiteral"],
-                "filePath": item["filePath"],
-                "lineStart": item["lineStart"],
             }
         return item
 
@@ -472,8 +470,8 @@ def main() -> None:
     get_parser.add_argument(
         "--format",
         choices=["full", "minimal"],
-        default="full",
-        help="Output format: full (all fields) or minimal (id+stringLiteral only, saves tokens)",
+        default="minimal",
+        help="Output format: minimal (id+stringLiteral only, default, saves tokens) or full (all fields)",
     )
     get_parser.add_argument(
         "--group-by-file",

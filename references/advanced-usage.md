@@ -4,14 +4,16 @@
 
 When the codebase contains thousands of print calls, AI context limits become the bottleneck. Use these strategies:
 
-### 1. Reduce token consumption with `--format minimal`
+### 1. Default minimal output
 
-Only sends `id`, `stringLiteral`, `filePath`, and `lineStart` — omitting `code`, `context`, and offsets:
+By default, `get` only returns `id` and `stringLiteral` — omitting `filePath`, `lineStart`, `code`, `context`, and offsets. This minimizes token consumption:
 
 ```bash
 python scripts/codebase.py get \
-  --input extracted.json --batch 50 --format minimal
+  --input extracted.json --batch 50
 ```
+
+To retrieve all fields, use `--format full`.
 
 ### 2. Group by file with `--group-by-file`
 
@@ -29,8 +31,8 @@ The output includes a `groupedByFile` map for easy per-file processing.
 | Scale | Recommended flags |
 |-------|-------------------|
 | < 200 items | `--batch 30` (default) |
-| 200–1000 items | `--batch 50 --format minimal` |
-| 1000+ items | `--batch 10 --format minimal --group-by-file` |
+| 200–1000 items | `--batch 50` |
+| 1000+ items | `--batch 10 --group-by-file` |
 
 With `--group-by-file`, a `--batch` of 5–10 files usually keeps the response under AI context limits while minimizing total iterations.
 
@@ -43,7 +45,7 @@ With `--group-by-file`, a `--batch` of 5–10 files usually keeps the response u
 | Command | Arguments | Purpose |
 |---------|-----------|---------|
 | `analyze` | `--config`, `--paths`, `--output` | Scan paths, extract print function string literals → `extracted.json` |
-| `get` | `--input`, `--batch` (default 30), `--format` (`full`\|`minimal`), `--group-by-file` | Return pending items, assign `batchId` |
+| `get` | `--input`, `--batch` (default 30), `--format` (`minimal`\|`full`), `--group-by-file` | Return pending items, assign `batchId` |
 | `mark-done` | `--input`, `--ids` or `--batch-id` | Manually mark items as completed |
 | `status` | `--input`, `--strict` | Show progress stats; `--strict` exits non-zero if incomplete |
 

@@ -77,7 +77,7 @@ python scripts/codebase.py get \
 **输出说明**：
 - 返回 JSON 格式的 `items` 数组，每个项包含 `id`、`stringLiteral`、`context` 等
 - 当返回 `"remaining": 0` 时，表示全部处理完毕，跳到步骤 5
-- **大型代码库**（>1000 项）：添加 `--format minimal --group-by-file` 以减少输出体积
+- **大型代码库**（>1000 项）：添加 `--group-by-file` 以减少输出体积；如需完整字段可指定 `--format full`
 
 ### 步骤 4：生成替换内容
 
@@ -162,7 +162,7 @@ Stats: total=64, pending=0, completed=64
 | 目的 | 命令 |
 |------|------|
 | 提取字符串 | `python scripts/codebase.py analyze --config config.json --paths paths.json --output extracted.json` |
-| 获取批次 | `python scripts/codebase.py get --input extracted.json --batch 30` |
+| 获取批次 | `python scripts/codebase.py get --input extracted.json --batch 30`（默认只返回 id + stringLiteral）|
 | 导入替换 | `python scripts/replacements.py import --file batch-replacements.json` |
 | 审查页面 | `python scripts/review.py --input extracted.json --replacements replacements.json --output review.html` |
 | 应用替换 | `python scripts/replacements.py apply --input extracted.json` |
