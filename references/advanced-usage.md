@@ -86,17 +86,17 @@ Open `review.html` in any browser — no server required.
 ### Workflow with Review
 
 ```bash
-# After AI generates replacements and you import them:
-python scripts/replacements.py import --file ai-batch.json
-
-# Generate review page
+# After AI generates replacements, review before applying:
 python scripts/review.py \
   --input extracted.json --output review.html
 
 # Open review.html in browser, edit / skip as needed, click Export
 # The exported replacements.json overwrites the old one
 
-# Then apply the reviewed replacements
+# Import the reviewed replacements
+python scripts/replacements.py import --file ai-batch.json
+
+# Then apply
 python scripts/replacements.py apply --input extracted.json
 ```
 

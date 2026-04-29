@@ -71,7 +71,7 @@ python scripts/codebase.py get \
 
 **输出说明**：
 - 默认返回 JSON 格式的 `items` 数组，每个项只包含 `id` 和 `stringLiteral`
-- 当返回 `"remaining": 0` 时，表示全部处理完毕，跳到步骤 5
+- 当返回 `"remaining": 0` 时，表示全部处理完毕，跳到步骤 6
 - **大型代码库**（>1000 项）：添加 `--group-by-file` 以减少输出体积；如需完整字段可指定 `--format full`
 
 ### 步骤 4：生成替换内容
@@ -95,16 +95,7 @@ python scripts/codebase.py get \
 - 保留引号：替换结果必须是完整的带引号字符串字面量，如 `"optimized\n"`
 - 保持语义：确保替换后的字符串仍能传达相同的关键信息
 
-### 步骤 5：导入替换结果
-
-```bash
-python scripts/replacements.py import \
-  --file batch-replacements.json
-```
-
-**验证**：检查输出 `Imported N new, updated M existing replacements`
-
-### 步骤 6：（可选）浏览器审查
+### 步骤 5：（可选）浏览器审查
 
 ```bash
 python scripts/review.py \
@@ -117,14 +108,22 @@ python scripts/review.py \
 3. 在线编辑不满意的替换
 4. 点击 **Download** 导出更新后的 `replacements.json`
 
-### 步骤 7：应用替换到源码
+### 步骤 6：导入并应用替换
 
+**导入替换**：
+```bash
+python scripts/replacements.py import \
+  --file batch-replacements.json
+```
+
+**应用替换**：
 ```bash
 python scripts/replacements.py apply --input extracted.json
 ```
 
 **预期输出**：
 ```
+Imported 50 new, updated 0 existing replacements
 Applied replacements to pm/pm_porting.c
 Applied replacements to at/at_cmd_porting/at_porting.c
 ...
@@ -135,7 +134,7 @@ Applied 64/64 replacements.
 - 检查 `git diff` 确认源码是否已被其他修改改变（偏移量不匹配）
 - 重新运行 `analyze` 刷新偏移量
 
-### 步骤 8：完成检查
+### 步骤 7：完成检查
 
 ```bash
 python scripts/codebase.py status --input extracted.json
@@ -197,11 +196,15 @@ python scripts/codebase.py analyze \
 python scripts/codebase.py get --input extracted.json --batch 30
 # [生成 batch-replacements.json]
 
-# 4. 导入并应用
+# 4. （可选）审查
+# python scripts/review.py --input extracted.json --output review.html
+# 浏览器中审查、编辑、导出 replacements.json
+
+# 5. 导入并应用
 python scripts/replacements.py import --file batch-replacements.json
 python scripts/replacements.py apply --input extracted.json
 
-# 5. 检查完成
+# 6. 检查完成
 python scripts/codebase.py status --input extracted.json
 ```
 
@@ -211,8 +214,8 @@ python scripts/codebase.py status --input extracted.json
 - [ ] `config.json` 已创建且格式正确
 - [ ] `analyze` 成功提取到字符串（数量 > 0）
 - [ ] 所有待处理项已分批获取并完成替换生成
-- [ ] 替换结果已导入 `replacements.json`
 - [ ] （可选）已通过 `review.py` 审查并导出更新
+- [ ] 替换结果已导入 `replacements.json`
 - [ ] `replacements.py apply` 成功执行，无 `mismatch` 警告
 - [ ] `status` 显示 `pending=0`，即 100% 完成
 - [ ] 已执行 `git diff` 确认变更正确
