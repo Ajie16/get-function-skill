@@ -1,0 +1,205 @@
+{
+  "version": "1.0",
+  "replacements": [
+    {
+      "id": "call-001",
+      "replacement": "\"[clk]ctrim=%x\""
+    },
+    {
+      "id": "call-002",
+      "replacement": "\"[clk]cal ctrim=%x\""
+    },
+    {
+      "id": "call-003",
+      "replacement": "\"BS2X SLE ok\\r\\n\""
+    },
+    {
+      "id": "call-004",
+      "replacement": "\"CAN:%x\\n\""
+    },
+    {
+      "id": "call-005",
+      "replacement": "\"sndf %x\\r\\n\""
+    },
+    {
+      "id": "call-006",
+      "replacement": "\"id=%x b0=%x len=%d\\n\""
+    },
+    {
+      "id": "call-007",
+      "replacement": "\"txe=%x rxe=%x\""
+    },
+    {
+      "id": "call-008",
+      "replacement": "\"sndf %x\\r\\n\""
+    },
+    {
+      "id": "call-009",
+      "replacement": "\"CAN test\\r\\n\""
+    },
+    {
+      "id": "call-010",
+      "replacement": "\"CAN init err:%x\\n\""
+    },
+    {
+      "id": "call-011",
+      "replacement": "\"CAN reg err:%x\\n\""
+    },
+    {
+      "id": "call-012",
+      "replacement": "\"[%d]tx:%x rx:%x\\r\\n\""
+    },
+    {
+      "id": "call-013",
+      "replacement": "\"ok:%d\\r\\n\""
+    },
+    {
+      "id": "call-014",
+      "replacement": "\"fail:%d\\r\\n\""
+    },
+    {
+      "id": "call-015",
+      "replacement": "\"rx:%d\\r\\n\""
+    },
+    {
+      "id": "call-016",
+      "replacement": "\"pin%d mode?\\r\\n\""
+    },
+    {
+      "id": "call-017",
+      "replacement": "\"pin%d=%d\\r\\n\""
+    },
+    {
+      "id": "call-018",
+      "replacement": "\"set pin%d m%d\\r\\n\""
+    },
+    {
+      "id": "call-019",
+      "replacement": "\"pin%d m%d ok\\r\\n\""
+    },
+    {
+      "id": "call-020",
+      "replacement": "\"\\r\\n\""
+    },
+    {
+      "id": "call-021",
+      "replacement": "\"pin%d drv?\\r\\n\""
+    },
+    {
+      "id": "call-022",
+      "replacement": "\"pin%d drv=%d\\r\\n\""
+    },
+    {
+      "id": "call-023",
+      "replacement": "\"set pin%d drv%d\\r\\n\""
+    },
+    {
+      "id": "call-024",
+      "replacement": "\"pin%d drv%d ok\\r\\n\""
+    },
+    {
+      "id": "call-025",
+      "replacement": "\"\\r\\n\""
+    },
+    {
+      "id": "call-026",
+      "replacement": "\"pin%d pd?\\r\\n\""
+    },
+    {
+      "id": "call-027",
+      "replacement": "\"pin%d pd=%d\\r\\n\""
+    },
+    {
+      "id": "call-028",
+      "replacement": "\"set pin%d pd%d\\r\\n\""
+    },
+    {
+      "id": "call-029",
+      "replacement": "\"pin%d pd%d ok\\r\\n\""
+    },
+    {
+      "id": "call-030",
+      "replacement": "\"t[%d]=%dms d=%dms\\r\\n\""
+    },
+    {
+      "id": "call-031",
+      "replacement": "\"DMA tx\\r\\n\""
+    },
+    {
+      "id": "call-032",
+      "replacement": "\"i2s dma wr err\\r\\n\""
+    },
+    {
+      "id": "call-033",
+      "replacement": "\"%s DMA cfg err %x\\r\\n\""
+    },
+    {
+      "id": "call-034",
+      "replacement": "\"%s DMA start err %x\\r\\n\""
+    },
+    {
+      "id": "call-035",
+      "replacement": "\"i2s dma err\\r\\n\""
+    },
+    {
+      "id": "call-036",
+      "replacement": "\"evt wr err\\r\\n\""
+    },
+    {
+      "id": "call-037",
+      "replacement": "\"DMA rx\\r\\n\""
+    },
+    {
+      "id": "call-038",
+      "replacement": "\"wdg timeout\\r\\n\""
+    },
+    {
+      "id": "call-039",
+      "replacement": "\"param err t=%d\\r\\n\""
+    },
+    {
+      "id": "call-040",
+      "replacement": "\"wdg init\\r\\n\""
+    },
+    {
+      "id": "call-041",
+      "replacement": "\"wdg kick\\r\\n\""
+    },
+    {
+      "id": "call-042",
+      "replacement": "\"uart%d int bad data\\r\\n\""
+    },
+    {
+      "id": "call-043",
+      "replacement": "\"uart%d int cp2 fail\\r\\n\""
+    },
+    {
+      "id": "call-044",
+      "replacement": "\"uart%d wr[%d]=%d\\r\\n\""
+    },
+    {
+      "id": "call-045",
+      "replacement": "\"uart%d int rx cb\\r\\n\""
+    },
+    {
+      "id": "call-046",
+      "replacement": "\"uart%d int rx cb ok\\r\\n\""
+    },
+    {
+      "id": "call-047",
+      "replacement": "\"uart%d int tx\\r\\n\""
+    },
+    {
+      "id": "call-048",
+      "replacement": "\"uart%d int tx ok\\r\\n\""
+    },
+    {
+      "id": "call-049",
+      "replacement": "\"uart%d dma rx\\r\\n\""
+    },
+    {
+      "id": "call-050",
+      "replacement": "\"uart%d dma rx ok\\r\\n\""
+    }
+  ]
+}

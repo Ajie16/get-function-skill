@@ -1,0 +1,13 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Working files
+/replacements.json
+
+# Generated large files
+test/extracted*.json
+test/review*.html
+test/test_*.json
+test/log.txt

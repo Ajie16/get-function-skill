@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "replacements": [
+    ["call-001", "\"[clk]ctrim=%x\""],
+    ["call-002", "\"[clk]cal=%x\""],
+    ["call-003", "\"SLE ok\\r\\n\""]
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "batchId": "batch-1777428719",
+  "count": 10,
+  "remaining": 1247,
+  "items": [
+    {
+      "id": "call-001",
+      "stringLiteral": "\"[clk]ctrim=%x\""
+    },
+    {
+      "id": "call-002",
+      "stringLiteral": "\"[clk]cal ctrim=%x\""
+    },
+    {
+      "id": "call-003",
+      "stringLiteral": "\"BS2X SLE ok\\r\\n\""
+    },
+    {
+      "id": "call-004",
+      "stringLiteral": "\"CAN:%x\\n\""
+    },
+    {
+      "id": "call-005",
+      "stringLiteral": "\"sndf %x\\r\\n\""
+    },
+    {
+      "id": "call-006",
+      "stringLiteral": "\"id=%x b0=%x len=%d\\n\""
+    },
+    {
+      "id": "call-007",
+      "stringLiteral": "\"txe=%x rxe=%x\""
+    },
+    {
+      "id": "call-008",
+      "stringLiteral": "\"sndf %x\\r\\n\""
+    },
+    {
+      "id": "call-009",
+      "stringLiteral": "\"CAN test\\r\\n\""
+    },
+    {
+      "id": "call-010",
+      "stringLiteral": "\"CAN init err:%x\\n\""
+    }
+  ]
+}
